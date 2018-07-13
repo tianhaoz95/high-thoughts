@@ -8,14 +8,19 @@ class SimpleCNN extends Component {
       status: 'configure',
       data: []
     };
-    var train_raw = props.train
-    var batch_size = train_raw.length;
+    var batch_size = 3;
+    var time_length = 5;
     this.model = tf.sequential();
     this.model.add(tf.layers.conv1d({
       filters: 32,
+      kernelSize: 3, 
       inputShape: [batch_size, time_length]
     }));
-    this.model.add(tf.layers.conv1d({filters: 32, inputShape: [batch_size, time_length]}));
+    this.model.add(tf.layers.conv1d({
+      filters: 32,
+      kernelSize: 3,
+      inputShape: [batch_size, time_length]
+    }));
     this.model.add(tf.layers.dense({units: 1, inputShape: [1]}));
     this.model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
   }
