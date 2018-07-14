@@ -3,6 +3,8 @@ import SimpleCNN from '../src/Components/SimpleCNN';
 import StockDayViz from '../src/Components/StockDayViz';
 import LossViz from '../src/Components/LossViz';
 import Paper from '@material-ui/core/Paper';
+import DemoGetDayPriceAPI from '../src/Components/Demos/DemoGetDayPriceAPI';
+import DemoGetTodayPriceAPI from '../src/Components/Demos/DemoGetTodayPriceAPI';
 import './index.css';
 
 import { storiesOf } from '@storybook/react';
@@ -60,6 +62,22 @@ storiesOf('AI Models', module)
         <SimpleCNN
           load_train_data={load_day_train_data}
           load_train_label={load_day_train_label}/>
+      </div>
+    </Paper>
+  ))
+
+storiesOf('API Demos', module)
+  .add('Get Day Price Demos', () => (
+    <Paper>
+      <div className="story-view">
+        <DemoGetDayPriceAPI/>
+      </div>
+    </Paper>
+  ))
+  .add('Get Today Price Demos', () => (
+    <Paper>
+      <div className="story-view">
+        <DemoGetTodayPriceAPI/>
       </div>
     </Paper>
   ))

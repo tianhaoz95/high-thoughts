@@ -7,6 +7,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 class SimpleCNN extends Component {
   constructor(props) {
@@ -84,24 +89,28 @@ class SimpleCNN extends Component {
     if (this.state.status == 'configured') {
       return (
         <div>
-          <h1>
-            configured
-          </h1>
-          <TextField
-            id="number"
-            label="Number"
-            value={this.state.iter}
-            onChange={this.handleChange}
-            type="number"
-            InputLabelProps={{shrink: true}}
-            margin="normal"
-          />
-          <Button
-            onClick={this.train}
-            variant="contained"
-            color="primary">
-            Train
-          </Button>
+          <Table>
+            <TableRow>
+              <TableCell>
+                <TextField
+                  id="number"
+                  label="Number"
+                  value={this.state.iter}
+                  onChange={this.handleChange}
+                  type="number"
+                  InputLabelProps={{shrink: true}}
+                  margin="normal"/>
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={this.train}
+                  variant="contained"
+                  color="primary">
+                  Train
+                </Button>
+              </TableCell>
+            </TableRow>
+          </Table>
           {this.state.loss.length === 0 ? (
             <h6>No training history yet</h6>
           ) : (
