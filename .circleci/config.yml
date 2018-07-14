@@ -32,3 +32,8 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: building storybook for test
+          command: |
+            npm run build-test-storybook
