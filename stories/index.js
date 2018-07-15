@@ -5,6 +5,7 @@ import LossViz from '../src/Components/LossViz';
 import Paper from '@material-ui/core/Paper';
 import DemoGetDayPriceAPI from '../src/Components/Demos/DemoGetDayPriceAPI';
 import DemoGetTodayPriceAPI from '../src/Components/Demos/DemoGetTodayPriceAPI';
+import DemoGetOneDayTrainingData from '../src/Components/Demos/DemoGetOneDayTrainingData';
 import './index.css';
 
 import { storiesOf } from '@storybook/react';
@@ -78,6 +79,13 @@ storiesOf('API Demos', module)
     <Paper>
       <div className="story-view">
         <DemoGetTodayPriceAPI/>
+      </div>
+    </Paper>
+  ))
+  .add('Get One Day Training Data', () => (
+    <Paper>
+      <div className="story-view">
+        <DemoGetOneDayTrainingData/>
       </div>
     </Paper>
   ))

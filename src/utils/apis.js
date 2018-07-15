@@ -83,14 +83,15 @@ export function getLowOfTheDay(data) {
 
 export function getOneDayTrainingData(stock, date) {
   return new Promise(function(resolve, reject) {
-    var current = date.format('DDMMYYYY');
-    var prev = date.subtract(1, 'day').format('DDMMYYYY');
+    var current = date.format('YYYYMMDD');
+    var prev = date.subtract(1, 'day').format('YYYYMMDD');
     Promise.all([
       getSpecificDayStockPrice(stock, current),
       getSpecificDayStockPrice(stock, prev)
     ]).then(function (twoDayData) {
       var dayOne = twoDayData[1];
       var dayTwo = twoDayData[0];
+      console.log(twoDayData);
       var dayTwoHigh = getHighOfTheDay(dayTwo);
       var dayTwoLow = getLowOfTheDay(dayTwo);
       resolve({
@@ -103,5 +104,15 @@ export function getOneDayTrainingData(stock, date) {
 }
 
 export function getPrevDaysTrainingData(stock, date, length) {
-  return 0;
+  return new Promise(function(resolve, reject) {
+    var dates = [];
+    for (var offset = 0; offset < length; ++offset) {
+      var current = date.subtract(offset, 'day');
+      dates.push(current);
+    }
+    Promise.all(dates.map((date) => (getOneDayTrainingData(stock, date))))
+    .then(function (res_list) {
+      resolve(res_list);
+    })
+  });
 }
