@@ -81,6 +81,19 @@ export function getLowOfTheDay(data) {
   return minTimeSpan['low'];
 }
 
+export function getLast30Days(date) {
+  var last_days = [];
+  for (var offset = 0; offset < 30; offset++) {
+    last_days.push(date.subtract(i, 'day').format('YYYYMMDD'));
+  }
+  return last_days;
+}
+
+export function getLastNWeekdays(stock, date, n) {
+  Promise.all()
+  return 0;
+}
+
 export function getOneDayTrainingData(stock, date) {
   return new Promise(function(resolve, reject) {
     var current = date.format('YYYYMMDD');
