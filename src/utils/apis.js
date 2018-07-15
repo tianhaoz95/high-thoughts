@@ -3,13 +3,17 @@ import _ from 'lodash';
 import dayjs from 'dayjs';
 
 export function trimPriceData(data) {
-  var clean_data = _.remove(data, function (dp) {
-    if (dp.average <= 0) {
-      return false;
-    }
-    return true;
-  });
-  return clean_data;
+  if (data.length > 0) {
+    var clean_data = _.remove(data, function (dp) {
+      if (dp.average <= 0) {
+        return false;
+      }
+      return true;
+    });
+    return clean_data;
+  } else {
+    return [];
+  }
 }
 
 export function getTodayStockPrice(stock) {
@@ -84,14 +88,39 @@ export function getLowOfTheDay(data) {
 export function getLast30Days(date) {
   var last_days = [];
   for (var offset = 0; offset < 30; offset++) {
-    last_days.push(date.subtract(i, 'day').format('YYYYMMDD'));
+    last_days.push(date.subtract(offset, 'day').format('YYYYMMDD'));
   }
   return last_days;
 }
 
-export function getLastNWeekdays(stock, date, n) {
-  Promise.all()
-  return 0;
+export function getLastNDaysTrainingData(stock, date, n) {
+  return new Promise(function(resolve, reject) {
+    var last30days = getLast30Days(date);
+    var week_days_data = [];
+    Promise.all(last30days.map((day) => (getSpecificDayStockPrice(stock, day))))
+    .then(function (res_list) {
+      _.forEach(res_list, (day_data) => {
+        if (day_data.length > 0) {
+          week_days_data.push(day_data);
+        }
+      });
+      var res_data = [];
+      if (week_days_data.length > n+1) {
+        res_data = _.take(week_days_data, n+1);
+      } else {
+        res_data = week_days_data;
+      }
+      var train_data = [];
+      for (var idx = 0; idx < res_data.length-1; ++idx) {
+        train_data.push({
+          prev_day_price_history: res_data[idx+1],
+          current_day_high: getHighOfTheDay(res_data[idx]),
+          current_day_low: getLowOfTheDay(res_data[idx])
+        });
+      }
+      resolve(train_data);
+    });
+  });
 }
 
 export function getOneDayTrainingData(stock, date) {
@@ -104,7 +133,6 @@ export function getOneDayTrainingData(stock, date) {
     ]).then(function (twoDayData) {
       var dayOne = twoDayData[1];
       var dayTwo = twoDayData[0];
-      console.log(twoDayData);
       var dayTwoHigh = getHighOfTheDay(dayTwo);
       var dayTwoLow = getLowOfTheDay(dayTwo);
       resolve({

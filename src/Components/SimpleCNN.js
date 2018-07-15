@@ -90,26 +90,28 @@ class SimpleCNN extends Component {
       return (
         <div>
           <Table>
-            <TableRow>
-              <TableCell>
-                <TextField
-                  id="number"
-                  label="Number"
-                  value={this.state.iter}
-                  onChange={this.handleChange}
-                  type="number"
-                  InputLabelProps={{shrink: true}}
-                  margin="normal"/>
-              </TableCell>
-              <TableCell>
-                <Button
-                  onClick={this.train}
-                  variant="contained"
-                  color="primary">
-                  Train
-                </Button>
-              </TableCell>
-            </TableRow>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <TextField
+                    id="number"
+                    label="Number"
+                    value={this.state.iter}
+                    onChange={this.handleChange}
+                    type="number"
+                    InputLabelProps={{shrink: true}}
+                    margin="normal"/>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    onClick={this.train}
+                    variant="contained"
+                    color="primary">
+                    Train
+                  </Button>
+                </TableCell>
+              </TableRow>
+            </TableBody>
           </Table>
           {this.state.loss.length === 0 ? (
             <h6>No training history yet</h6>
