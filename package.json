@@ -17,6 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "jtest": "jest",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook -o .out",
@@ -30,6 +31,7 @@
     "@storybook/addon-notes": "^3.4.8",
     "@storybook/react": "^3.4.8",
     "@storybook/storybook-deployer": "^2.3.0",
+    "jest": "^23.4.1",
     "storybook-readme": "^3.3.0"
   }
 }
