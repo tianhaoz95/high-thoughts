@@ -13,14 +13,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-class SimpleCNN extends Component {
+class SimpleClassificationCNN extends Component {
   constructor(props) {
     super(props);
     this.state = {
       status: 'unconfigured',
       loss: [],
       training: false,
-      iter: 10
+      iter: 10,
+      type: 0
     };
 
     this.train = this.train.bind(this);
@@ -137,4 +138,4 @@ class SimpleCNN extends Component {
   }
 }
 
-export default SimpleCNN;
+export default SimpleClassificationCNN;

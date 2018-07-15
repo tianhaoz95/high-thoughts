@@ -18,3 +18,40 @@ export function days2label(labels) {
   var res = tf.tensor2d(labels);
   return res;
 }
+
+export function padFront(arr, target_len) {
+  var diff_len = target_len - arr.length;
+  var pad_arr = _.fill(Array(diff_len), arr[0]);
+  var res_arr = _.concat(pad_arr, arr);
+  return res_arr;
+}
+
+export function NDayData2RegressionTrainingSet(data) {
+  var xs = [];
+  var ys_high = [];
+  var ys_low = [];
+  var max_len = _.max(data.map((d) => (d.prev_day_price_history.length)));
+  _.forEach(data, (d) => {
+    var anch = (d.current_day_high + d.current_day_low) / 2.0;
+    var rate_high = (d.current_day_high - anch) / anch;
+    var rate_low = (d.current_day_low - anch) / anch;
+    var x = [];
+    _.forEach(d.prev_day_price_history, (t) => {
+      var rate = (t - anch) / anch;
+      x.push([rate]);
+    });
+    var pad_x = padFront(x);
+    xs.push(pad_x);
+    ys_high.push([rate_high]);
+    ys_low.push([rate_low]);
+  });
+  return {
+    xs: tf.tensor3d(xs),
+    ys_high: tf.tensor2d(ys_high),
+    ys_low: tf.tensor2d(ys_low)
+  };
+}
+
+export function NDayData2ClassificationTrainingSet() {
+  return 0;
+}

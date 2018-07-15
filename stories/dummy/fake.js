@@ -5,12 +5,20 @@ export var fake_simple_cnn_train_data = [
   [[1],[1],[2],[3],[1],[1],[2],[3],[2],[1]],
   [[1],[1],[2],[3],[1],[1],[2],[3],[2],[1]]
 ];
-export var fake_simple_cnn_train_label = [
+export var fake_simple_classification_cnn_train_label = [
   [0,0,1,0,0],
   [0,1,0,0,0],
   [0,0,0,1,0],
   [0,1,0,0,0],
   [1,0,0,0,0]
+];
+
+export var fake_simple_regression_cnn_train_label = [
+  [1.2],
+  [2.2],
+  [-1.1],
+  [1.2],
+  [0.5]
 ];
 
 export var fake_loss = [
