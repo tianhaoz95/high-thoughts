@@ -34,6 +34,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
+          name: running jest tests
+          command: |
+            npm test
+
+      - run:
           name: building storybook for test
           command: |
             npm run build-test-storybook
