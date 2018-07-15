@@ -37,3 +37,8 @@ jobs:
           name: running jest tests
           command: |
             npm test
+
+      - run:
+          name: running coverage tests
+          command: |
+            npm test -- --coverage
