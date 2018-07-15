@@ -19,6 +19,10 @@ export function days2label(labels) {
   return res;
 }
 
+export function gen_conv_lstm_model() {
+  return 0;
+}
+
 export function gen_simple_conv_model(conv_layers=[16,16], dense_layers=[16,16]) {
   var model = tf.sequential();
   var conv_cnt = conv_layers.length;

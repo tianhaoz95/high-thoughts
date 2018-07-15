@@ -21,6 +21,20 @@ export function getTodayStockPrice(stock) {
   });
 }
 
+export function getRecentDayStockPrice(stock, cnt) {
+  return new Promise(function(resolve, reject) {
+    var today = dayjs();
+    var date_list = [];
+    for (var i = 0; i < cnt; ++i) {
+      date_list.push(today.subtract(i, 'day').format('DDMMYYYY'));
+    }
+    Promise.all(date_list.map((date) => (getSpecificDayStockPrice(stock, date))))
+    .then(function (price_list) {
+      resolve(price_list);
+    });
+  });
+}
+
 export function getMonthStockPrice(stock) {
   return new Promise(function(resolve, reject) {
     var endpoint = 'https://api.iextrading.com/1.0/stock/' + stock + '/chart/1m';
@@ -88,16 +102,6 @@ export function getOneDayTrainingData(stock, date) {
   });
 }
 
-export function getRecentDayStockPrice(stock, cnt) {
-  return new Promise(function(resolve, reject) {
-    var today = dayjs();
-    var date_list = [];
-    for (var i = 0; i < cnt; ++i) {
-      date_list.push(today.subtract(i, 'day').format('DDMMYYYY'));
-    }
-    Promise.all(date_list.map((date) => (getSpecificDayStockPrice(stock, date))))
-    .then(function (price_list) {
-      resolve(price_list);
-    });
-  });
+export function getPrevDaysTrainingData(stock, date, length) {
+  return 0;
 }
