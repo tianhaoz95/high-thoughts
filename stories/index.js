@@ -9,6 +9,7 @@ import DemoGetTodayPriceAPI from '../src/Components/Demos/DemoGetTodayPriceAPI';
 import DemoGetOneDayTrainingData from '../src/Components/Demos/DemoGetOneDayTrainingData';
 import DemoGetLast30Days from '../src/Components/Demos/DemoGetLast30Days';
 import DemoGetLastDaysTrainingData from '../src/Components/Demos/DemoGetLastDaysTrainingData';
+import ModelContinuousTrainer from '../src/Components/ModelContinuousTrainer';
 import './index.css';
 
 import MainReadme from '../README.md';
@@ -24,11 +25,36 @@ import { fake_simple_classification_cnn_train_label } from './dummy/fake_model_i
 import { days2data, days2label } from '../src/utils/preprocess';
 import { fake_loss } from './dummy/fake_model_inputs.js';
 import { fake_stock_day_raw } from './dummy/fake_stock_day_data.js';
+import { genSimpleRegressionConv } from '../src/utils/models';
 
 var fake_stock_day = trimPriceData(fake_stock_day_raw);
 var day_data = days2data(fake_simple_cnn_train_data);
 var day_regression_label = days2label(fake_simple_regression_cnn_train_label);
 var day_classification_label = days2label(fake_simple_classification_cnn_train_label);
+
+function get_mini_batch_x() {
+  return day_data;
+}
+
+function get_mini_batch_y() {
+  return day_regression_label;
+}
+
+function get_interval() {
+  return 1000;
+}
+
+function get_config() {
+  return {
+    epochs: 5
+  };
+}
+
+var simple_regression_model = genSimpleRegressionConv(10);
+
+function get_model() {
+  return simple_regression_model;
+}
 
 var load_day_train_data = () => {
   return new Promise(function(resolve, reject) {
@@ -53,6 +79,21 @@ var load_day_regression_train_label = () => {
     }, 1000);
   });
 }
+
+storiesOf('Utilities', module)
+  .add('Continuous Trainer', withReadme(MainReadme, () => (
+    <Paper>
+      <div className="story-view">
+        <h1>Continuous Model Trainer</h1>
+        <ModelContinuousTrainer
+          getMiniBatchX={get_mini_batch_x}
+          getMiniBatchY={get_mini_batch_y}
+          getConfig={get_config}
+          getModel={get_model}
+          getInterval={get_interval}/>
+      </div>
+    </Paper>
+  )))
 
 storiesOf('Visualizations', module)
   .add('Loss Visualization', withReadme(MainReadme, () => (
