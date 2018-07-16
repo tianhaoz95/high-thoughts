@@ -37,14 +37,14 @@ export function genSimpleRegressionConv(
   }));
   model.compile({
     loss: 'meanSquaredError',
-    optimizer: 'sgd',
-    metrics: ['loss']
+    optimizer: 'sgd'
   });
   return model;
 }
 
 export function genSimpleClassificationConv(
   time_length,
+  category_cnt,
   conv_layers=[16,16],
   dense_layers=[16,16]
 ) {
@@ -70,7 +70,7 @@ export function genSimpleClassificationConv(
     }));
   }
   model.add(tf.layers.dense({
-    units: 5,
+    units: category_cnt,
     activation: 'softmax'
   }));
   model.compile({

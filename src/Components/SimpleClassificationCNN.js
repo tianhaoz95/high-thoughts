@@ -12,6 +12,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { genSimpleClassificationConv } from '../utils/models';
 
 class SimpleClassificationCNN extends Component {
   constructor(props) {
@@ -28,30 +29,8 @@ class SimpleClassificationCNN extends Component {
     this.handleChange = this.handleChange.bind(this);
 
     var time_length = 10;
-    this.model = tf.sequential();
-    this.model.add(tf.layers.conv1d({
-      filters: 4,
-      kernelSize: 3,
-      inputShape: [time_length, 1]
-    }));
-    this.model.add(tf.layers.conv1d({
-      filters: 4,
-      kernelSize: 3
-    }));
-    this.model.add(tf.layers.flatten());
-    this.model.add(tf.layers.dense({
-      units: 10,
-      activation: 'relu'
-    }));
-    this.model.add(tf.layers.dense({
-      units: 5,
-      activation: 'softmax'
-    }));
-    this.model.compile({
-      loss: 'meanSquaredError',
-      optimizer: 'sgd',
-      metrics: ['accuracy']
-    });
+    var category_cnt = 5;
+    this.model = genSimpleClassificationConv(time_length, category_cnt);
   }
 
   train() {

@@ -1,4 +1,4 @@
-[
+export var fake_stock_day_raw = [
   {
     "date": "20180712",
     "minute": "09:30",
@@ -8865,4 +8865,4 @@
     "changeOverTime": 0.007083787929098841,
     "marketChangeOverTime": 0.007975861414132892
   }
-]
+];
