@@ -1,16 +1,16 @@
 import React from 'react';
-import SimpleClassificationCNN from '../src/Components/SimpleClassificationCNN';
-import SimpleRegressionCNN from '../src/Components/SimpleRegressionCNN';
-import StockDayViz from '../src/Components/StockDayViz';
-import LossViz from '../src/Components/LossViz';
 import Paper from '@material-ui/core/Paper';
+import './index.css';
+
+import SimpleClassificationCNN from '../src/Components/Demos/SimpleClassificationCNN';
+import SimpleRegressionCNN from '../src/Components/Demos/SimpleRegressionCNN';
+import DemoStockDayViz from '../src/Components/Demos/DemoStockDayViz';
+import DemoLossViz from '../src/Components/Demos/DemoLossViz';
 import DemoGetDayPriceAPI from '../src/Components/Demos/DemoGetDayPriceAPI';
 import DemoGetTodayPriceAPI from '../src/Components/Demos/DemoGetTodayPriceAPI';
 import DemoGetOneDayTrainingData from '../src/Components/Demos/DemoGetOneDayTrainingData';
 import DemoGetLast30Days from '../src/Components/Demos/DemoGetLast30Days';
 import DemoGetLastDaysTrainingData from '../src/Components/Demos/DemoGetLastDaysTrainingData';
-import ModelContinuousTrainer from '../src/Components/ModelContinuousTrainer';
-import './index.css';
 
 import MainReadme from '../README.md';
 
@@ -18,97 +18,19 @@ import { storiesOf } from '@storybook/react';
 import { withReadme, withDocs }  from 'storybook-readme';
 import { action } from '@storybook/addon-actions';
 import { withNotes } from '@storybook/addon-notes';
-import { trimPriceData } from '../src/utils/apis';
-import { fake_simple_cnn_train_data } from './dummy/fake_model_inputs.js';
-import { fake_simple_regression_cnn_train_label } from './dummy/fake_model_inputs.js'
-import { fake_simple_classification_cnn_train_label } from './dummy/fake_model_inputs.js'
-import { days2data, days2label } from '../src/utils/preprocess';
-import { fake_loss } from './dummy/fake_model_inputs.js';
-import { fake_stock_day_raw } from './dummy/fake_stock_day_data.js';
-import { genSimpleRegressionConv } from '../src/utils/models';
-
-var fake_stock_day = trimPriceData(fake_stock_day_raw);
-var day_data = days2data(fake_simple_cnn_train_data);
-var day_regression_label = days2label(fake_simple_regression_cnn_train_label);
-var day_classification_label = days2label(fake_simple_classification_cnn_train_label);
-
-function get_mini_batch_x() {
-  return day_data;
-}
-
-function get_mini_batch_y() {
-  return day_regression_label;
-}
-
-function get_interval() {
-  return 1000;
-}
-
-function get_config() {
-  return {
-    epochs: 5
-  };
-}
-
-var simple_regression_model = genSimpleRegressionConv(10);
-
-function get_model() {
-  return simple_regression_model;
-}
-
-var load_day_train_data = () => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function () {
-      resolve(day_data)
-    }, 1000);
-  });
-}
-
-var load_day_classification_train_label = () => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function () {
-      resolve(day_classification_label)
-    }, 1000);
-  });
-}
-
-var load_day_regression_train_label = () => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function () {
-      resolve(day_regression_label)
-    }, 1000);
-  });
-}
-
-storiesOf('Utilities', module)
-  .add('Continuous Trainer', withReadme(MainReadme, () => (
-    <Paper>
-      <div className="story-view">
-        <h1>Continuous Model Trainer</h1>
-        <ModelContinuousTrainer
-          getMiniBatchX={get_mini_batch_x}
-          getMiniBatchY={get_mini_batch_y}
-          getConfig={get_config}
-          getModel={get_model}
-          getInterval={get_interval}/>
-      </div>
-    </Paper>
-  )))
 
 storiesOf('Visualizations', module)
   .add('Loss Visualization', withReadme(MainReadme, () => (
     <Paper>
       <div className="story-view">
-        <h1>Loss Vizualization</h1>
-        <LossViz history={fake_loss}/>
+        <DemoLossViz/>
       </div>
     </Paper>
   )))
   .add('Day Price Visualization', withReadme(MainReadme, () => (
     <Paper>
       <div className="story-view">
-        <h1>Stock Daily Price Vizualization</h1>
-        <StockDayViz data={fake_stock_day} />
+        <DemoStockDayViz/>
       </div>
     </Paper>
   )));
@@ -118,9 +40,7 @@ storiesOf('AI Models', module)
     <Paper>
       <div className="story-view">
         <h1>Simple CNN Model</h1>
-        <SimpleClassificationCNN
-          load_train_data={load_day_train_data}
-          load_train_label={load_day_classification_train_label}/>
+        <SimpleClassificationCNN/>
       </div>
     </Paper>
   )))
@@ -128,9 +48,7 @@ storiesOf('AI Models', module)
     <Paper>
       <div className="story-view">
         <h1>Simple CNN Model</h1>
-        <SimpleRegressionCNN
-          load_train_data={load_day_train_data}
-          load_train_label={load_day_regression_train_label}/>
+        <SimpleRegressionCNN/>
       </div>
     </Paper>
   )))

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import Switch from '@material-ui/core/Switch';
-import LossViz from './LossViz';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import LossViz from '../Visualization/LossViz';
 
 class ModelTrainer extends Component {
   constructor(props) {
@@ -45,10 +47,13 @@ class ModelTrainer extends Component {
   render() {
     return (
       <div>
-        <Switch
-          checked={this.state.training}
-          onChange={this.handleToggleTraining}
-          value="checkedA"/>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.state.training}
+              onChange={this.handleToggleTraining}
+              value="training"/>}
+          label={this.state.training ? (<CircularProgress/>) : ("Start Training")}/>
         <LossViz history={this.state.loss}/>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LossViz from '../LossViz';
-import StockDayViz from '../StockDayViz';
+import LossViz from '../Visualization/LossViz';
+import StockDayViz from '../Visualization/StockDayViz';
 
 export var fake_loss = [
   {loss: 19.1},
