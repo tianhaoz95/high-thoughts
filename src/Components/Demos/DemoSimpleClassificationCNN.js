@@ -16,7 +16,7 @@ function get_mini_batch_y() {
   return day_classification_label;
 }
 
-class SimpleClassificationCNN extends Component {
+class DemoSimpleClassificationCNN extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -58,4 +58,4 @@ class SimpleClassificationCNN extends Component {
   }
 }
 
-export default SimpleClassificationCNN;
+export default DemoSimpleClassificationCNN;

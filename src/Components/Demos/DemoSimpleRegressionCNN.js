@@ -16,7 +16,7 @@ function get_mini_batch_y() {
   return day_regression_label;
 }
 
-class SimpleRegressionCNN extends Component {
+class DemoSimpleRegressionCNN extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -57,4 +57,4 @@ class SimpleRegressionCNN extends Component {
   }
 }
 
-export default SimpleRegressionCNN;
+export default DemoSimpleRegressionCNN;

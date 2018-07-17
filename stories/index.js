@@ -2,8 +2,8 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import './index.css';
 
-import SimpleClassificationCNN from '../src/Components/Demos/SimpleClassificationCNN';
-import SimpleRegressionCNN from '../src/Components/Demos/SimpleRegressionCNN';
+import DemoSimpleClassificationCNN from '../src/Components/Demos/DemoSimpleClassificationCNN';
+import DemoSimpleRegressionCNN from '../src/Components/Demos/DemoSimpleRegressionCNN';
 import DemoStockDayViz from '../src/Components/Demos/DemoStockDayViz';
 import DemoLossViz from '../src/Components/Demos/DemoLossViz';
 import DemoGetDayPriceAPI from '../src/Components/Demos/DemoGetDayPriceAPI';
@@ -40,7 +40,7 @@ storiesOf('AI Models', module)
     <Paper>
       <div className="story-view">
         <h1>Simple CNN Model</h1>
-        <SimpleClassificationCNN/>
+        <DemoSimpleClassificationCNN/>
       </div>
     </Paper>
   )))
@@ -48,7 +48,7 @@ storiesOf('AI Models', module)
     <Paper>
       <div className="story-view">
         <h1>Simple CNN Model</h1>
-        <SimpleRegressionCNN/>
+        <DemoSimpleRegressionCNN/>
       </div>
     </Paper>
   )))
