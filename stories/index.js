@@ -11,6 +11,7 @@ import DemoGetTodayPriceAPI from '../src/Components/Demos/DemoGetTodayPriceAPI';
 import DemoGetOneDayTrainingData from '../src/Components/Demos/DemoGetOneDayTrainingData';
 import DemoGetLast30Days from '../src/Components/Demos/DemoGetLast30Days';
 import DemoGetLastDaysTrainingData from '../src/Components/Demos/DemoGetLastDaysTrainingData';
+import DemoSimplePredictor from '../src/Components/Demos/DemoSimplePredictor';
 
 import MainReadme from '../README.md';
 
@@ -49,6 +50,16 @@ storiesOf('AI Models', module)
       <div className="story-view">
         <h1>Simple CNN Model</h1>
         <DemoSimpleRegressionCNN/>
+      </div>
+    </Paper>
+  )))
+
+storiesOf('AI Utilities', module)
+  .add('Simple Predictor', withReadme(MainReadme, () => (
+    <Paper>
+      <div className="story-view">
+        <h1>Simple Predictor</h1>
+        <DemoSimplePredictor/>
       </div>
     </Paper>
   )))
