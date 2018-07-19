@@ -12,6 +12,8 @@ import DemoGetOneDayTrainingData from '../src/Components/Demos/DemoGetOneDayTrai
 import DemoGetLast30Days from '../src/Components/Demos/DemoGetLast30Days';
 import DemoGetLastDaysTrainingData from '../src/Components/Demos/DemoGetLastDaysTrainingData';
 import DemoSimplePredictor from '../src/Components/Demos/DemoSimplePredictor';
+import DemoNextDayRegressionDataGenerator from '../src/Components/Demos/DemoNextDayRegressionDataGenerator';
+import CNNRegressionPipeline from '../src/Components/Pipeline/CNNRegressionPipeline';
 
 import MainReadme from '../README.md';
 
@@ -54,7 +56,7 @@ storiesOf('AI Models', module)
     </Paper>
   )))
 
-storiesOf('AI Utilities', module)
+storiesOf('Predictors', module)
   .add('Simple Predictor', withReadme(MainReadme, () => (
     <Paper>
       <div className="story-view">
@@ -64,7 +66,27 @@ storiesOf('AI Utilities', module)
     </Paper>
   )))
 
-storiesOf('API Demos', module)
+storiesOf('Pipelines', module)
+  .add('CNN Regression Pipeline', withReadme(MainReadme, () => (
+    <Paper>
+      <div className="story-view">
+        <h1>CNN Regression Pipeline</h1>
+        <CNNRegressionPipeline/>
+      </div>
+    </Paper>
+  )))
+
+storiesOf('Data Generators', module)
+  .add('Next Day Regression', withReadme(MainReadme, () => (
+    <Paper>
+      <div className="story-view">
+        <h1>Next Day Regression Data Generator</h1>
+        <DemoNextDayRegressionDataGenerator/>
+      </div>
+    </Paper>
+  )))
+
+storiesOf('Stock Price APIs', module)
   .add('Get Day Price Demos', withReadme(MainReadme, () => (
     <Paper>
       <div className="story-view">
