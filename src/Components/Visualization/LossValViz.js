@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Label, LineChart, XAxis, Line } from 'recharts';
 import { YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-class LossViz extends Component {
+class LossValViz extends Component {
   render() {
     console.log(this.props.history);
     return (
@@ -19,6 +19,7 @@ class LossViz extends Component {
               type="number"
               domain={[0, 'dataMax']}/>
             <Line type="natural" dot={false} dataKey="loss" stroke="#8884d8" />
+            <Line type="natural" dot={false} dataKey="val" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -26,4 +27,4 @@ class LossViz extends Component {
   }
 }
 
-export default LossViz;
+export default LossValViz;

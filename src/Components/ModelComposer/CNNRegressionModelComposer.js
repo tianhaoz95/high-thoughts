@@ -9,7 +9,7 @@ class CNNRegressionModelComposer extends Component {
   }
 
   handleGenerateModel() {
-    var model = genSimpleRegressionConv(10);
+    var model = genSimpleRegressionConv(370);
     this.props.onGenerateModel(model);
   }
 

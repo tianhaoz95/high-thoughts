@@ -33,14 +33,15 @@ export function NDayData2RegressionTrainingSet(data) {
   var max_len = _.max(data.map((d) => (d.prev_day_price_history.length)));
   _.forEach(data, (d) => {
     var anch = (d.current_day_high + d.current_day_low) / 2.0;
+    console.log(anch);
     var rate_high = (d.current_day_high - anch) / anch;
     var rate_low = (d.current_day_low - anch) / anch;
     var x = [];
     _.forEach(d.prev_day_price_history, (t) => {
-      var rate = (t - anch) / anch;
+      var rate = (t.average - anch) / anch;
       x.push([rate]);
     });
-    var pad_x = padFront(x);
+    var pad_x = padFront(x, max_len);
     xs.push(pad_x);
     ys_high.push([rate_high]);
     ys_low.push([rate_low]);

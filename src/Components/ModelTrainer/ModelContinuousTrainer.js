@@ -3,7 +3,8 @@ import * as tf from '@tensorflow/tfjs';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LossViz from '../Visualization/LossViz';
+import LossValViz from '../Visualization/LossValViz';
+import _ from 'lodash';
 
 class ModelTrainer extends Component {
   constructor(props) {
@@ -29,7 +30,14 @@ class ModelTrainer extends Component {
           obj.props.getConfig()
         ).then(function (snap) {
           var history = snap['history'];
-          var mapped_loss = history['loss'].map((l) => ({loss: l}));
+          var loss_len = history['loss'].length;
+          var mapped_loss = [];
+          for (var i = 0; i < loss_len; ++i) {
+            mapped_loss.push({
+              loss: history['loss'][i],
+              val: history['val_loss'][i]
+            });
+          }
           obj.setState({
             loss: _.concat(obj.state.loss, mapped_loss)
           });
@@ -54,7 +62,7 @@ class ModelTrainer extends Component {
               onChange={this.handleToggleTraining}
               value="training"/>}
           label={this.state.training ? (<CircularProgress/>) : ("Start Training")}/>
-        <LossViz history={this.state.loss}/>
+        <LossValViz history={this.state.loss}/>
       </div>
     );
   }
