@@ -8,6 +8,8 @@ import { fake_simple_regression_cnn_train_label } from '../Demos/dummy/fake_mode
 import { days2data, days2label } from '../../utils/preprocess';
 import { getLastNDaysTrainingData } from '../../utils/apis';
 import { NDayData2RegressionTrainingSet } from '../../utils/preprocess';
+import { getTodayStockPrice } from '../../utils/apis';
+import { getTodayPredictData } from '../../utils/preprocess';
 
 class NextDayRegressionDataGenerator extends Component {
   constructor(props) {
@@ -19,15 +21,19 @@ class NextDayRegressionDataGenerator extends Component {
     var obj = this;
     getLastNDaysTrainingData('aapl', dayjs(), 10)
     .then(function (data) {
-      console.log(data);
       var processed_data = NDayData2RegressionTrainingSet(data);
-      console.log(processed_data);
       obj.props.onGenerateTrainData({
         x: processed_data['xs'],
         y: processed_data['ys_high']
       });
-      obj.props.onGeneratePredictData({
-        x: processed_data['xs']
+      getTodayStockPrice('aapl')
+      .then(function (pred_raw) {
+        console.log(pred_raw);
+        var time_len = processed_data['xs'].shape[1];
+        var pred_data = getTodayPredictData(pred_raw, time_len);
+        obj.props.onGeneratePredictData({
+          x: pred_data
+        });
       });
     });
   }

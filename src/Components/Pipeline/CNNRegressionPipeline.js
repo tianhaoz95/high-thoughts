@@ -3,6 +3,7 @@ import CNNRegressionModelComposer from '../ModelComposer/CNNRegressionModelCompo
 import NextDayRegressionDataGenerator from '../DataGenerator/NextDayRegressionDataGenerator';
 import ModelContinuousTrainer from '../ModelTrainer/ModelContinuousTrainer';
 import SimplePredictor from '../Predictor/SimplePredictor';
+import RegressionPredictViz from '../Visualization/RegressionPredictViz';
 
 class CNNRegressionPipeline extends Component {
   constructor(props) {
@@ -10,11 +11,13 @@ class CNNRegressionPipeline extends Component {
     this.state = {
       has_model: false,
       has_train_data: false,
-      has_predict_data: false
+      has_predict_data: false,
+      has_pred_res: false
     };
     this.model = null;
     this.train_data = null;
     this.predict_data = null;
+    this.predict_res = null;
     this.get_pred_x = this.get_pred_x.bind(this);
     this.onGenerateModel = this.onGenerateModel.bind(this);
     this.get_mini_batch_x = this.get_mini_batch_x.bind(this);
@@ -25,6 +28,7 @@ class CNNRegressionPipeline extends Component {
     this.get_interval = this.get_interval.bind(this);
     this.onGenerateTrainData = this.onGenerateTrainData.bind(this);
     this.onGeneratePredictData = this.onGeneratePredictData.bind(this);
+    this.getPredictResult = this.getPredictResult.bind(this);
   }
 
   onGenerateModel(model) {
@@ -77,8 +81,19 @@ class CNNRegressionPipeline extends Component {
     return this.model;
   }
 
-  onPredict() {
-    console.log('got prediction');
+  onPredict(pred) {
+    var obj = this;
+    pred.data()
+    .then(function (arr) {
+      obj.predict_res = arr;
+      obj.setState({
+        has_pred_res: true
+      });
+    });
+  }
+
+  getPredictResult() {
+    return this.predict_res;
   }
 
   render() {
@@ -103,6 +118,8 @@ class CNNRegressionPipeline extends Component {
           getInputX={this.get_pred_x}
           onPredict={this.onPredict}
           getModel={this.get_model}/>
+        <RegressionPredictViz
+          getPredictResult={this.getPredictResult}/>
       </div>
     );
   }
