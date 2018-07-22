@@ -14,6 +14,7 @@ import DemoGetLastDaysTrainingData from '../src/Components/Demos/DemoGetLastDays
 import DemoSimplePredictor from '../src/Components/Demos/DemoSimplePredictor';
 import DemoNextDayRegressionDataGenerator from '../src/Components/Demos/DemoNextDayRegressionDataGenerator';
 import CNNRegressionPipeline from '../src/Components/Pipeline/CNNRegressionPipeline';
+import GenericStepperPipeline from '../src/Components/Pipeline/GenericStepperPipeline';
 
 import MainReadme from '../README.md';
 
@@ -72,6 +73,14 @@ storiesOf('Pipelines', module)
       <div className="story-view">
         <h1>CNN Regression Pipeline</h1>
         <CNNRegressionPipeline/>
+      </div>
+    </Paper>
+  )))
+  .add('Generic Stepper Pipeline', withReadme(MainReadme, () => (
+    <Paper>
+      <div className="story-view">
+        <h1>Generic Stepper Pipeline</h1>
+        <GenericStepperPipeline/>
       </div>
     </Paper>
   )))
