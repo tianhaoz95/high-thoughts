@@ -12,6 +12,8 @@ class GenericStepperPipeline extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      has_train_data: false,
+      has_pred_data: false,
       activeStep: 0,
     };
     this.getTitle = this.getTitle.bind(this);
@@ -34,6 +36,32 @@ class GenericStepperPipeline extends Component {
       default:
         return (<ErrorStepperTitle/>);
         break;
+    }
+  }
+
+  onGenerateTrainData(data) {
+    if (this.state.has_pred_data) {
+      this.setState({
+        has_train_data: true,
+        activeStep: 1
+      });
+    } else {
+      this.setState({
+        has_train_data: true
+      });
+    }
+  }
+
+  onGeneratePredictData(data) {
+    if (this.state.has_train_data) {
+      this.setState({
+        has_pred_data: true,
+        activeStep: 1
+      });
+    } else {
+      this.setState({
+        has_pred_data: true
+      });
     }
   }
 
