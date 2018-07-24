@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import LossValViz from '../Visualization/LossValViz';
 import _ from 'lodash';
 
-class ModelTrainer extends Component {
+class ModelContinuousTrainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,4 +68,4 @@ class ModelTrainer extends Component {
   }
 }
 
-export default ModelTrainer;
+export default ModelContinuousTrainer;
