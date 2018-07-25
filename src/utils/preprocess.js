@@ -1,6 +1,17 @@
 import * as tf from '@tensorflow/tfjs';
 import _ from 'lodash';
 
+const default_bound = [
+  [-0.2,0.15],
+  [-0.15,-0.1],
+  [-0.1,0.05],
+  [-0.05,0],
+  [0,0.05],
+  [0.05,0.1],
+  [0.1,0.15],
+  [0.15,0.2]
+];
+
 export function days2data(days) {
   var max_len = _.maxBy(days, (day) => day.length).length;
   var pad_arrs = [];
@@ -43,6 +54,33 @@ export function getTodayPredictData(data_raw, time_len) {
   var aug_arr = [processed_data.map((d) => ([d]))];
   var res = tf.tensor3d(aug_arr);
   return res;
+}
+
+export function regression2classification(data, bounds=default_bound) {
+  var converted_data = [];
+  var class_cnt = bounds.length + 2;
+  _.forEach(data, (d) => {
+    var cd = _.fill(Array(class_cnt), 0);
+    if (d <= bounds[0][0]) {
+      cd[0] = 1;
+      converted_data.push(cd);
+      return;
+    }
+    if (d > bounds[bounds.length-1][1]) {
+      cd[class_cnt-1] = 1;
+      converted_data.push(cd);
+      return;
+    }
+    for (var i = 0; i < bounds.length; ++i) {
+      if (d > bounds[i][0] && d <= bounds[i][1]) {
+        cd[i+1] = 1;
+        converted_data.push(cd);
+        return;
+      }
+    }
+    console.log('regression2classification bug');
+  });
+  return converted_data;
 }
 
 export function NDayData2RegressionTrainingSet(data) {
